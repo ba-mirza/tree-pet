@@ -1,0 +1,29 @@
+button {
+  padding: 10px;
+  font-size: 18px;
+  background: none;
+  border: 0.5px solid #202020;
+  outline: none;
+  cursor: pointer;
+}
+
+:host {
+  display: block;
+  background: #fff;
+  border-radius: 3px;
+  padding: 8px 16px 16px;
+  border: none;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+  }
+}

@@ -1,0 +1,68 @@
+span {
+  padding: 10px;
+}
+
+button {
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.root {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
+  font-size: 26px;
+
+  .form {
+    background-color: #fff;
+    padding: 20px;
+    border: 0.5px solid #202020;
+  }
+
+  .node-tree {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #fff;
+    margin-top: 50px;
+    padding: 25px;
+    border: 0.5px solid #202020;
+
+    .section-tree {
+      margin-left: 10px;
+      position: relative;
+      border-left: 2px dotted #202020;
+
+      &::before {
+        position: relative;
+        top: -4px;
+        width: 15px;
+        border-bottom: 2px dotted #202020;
+        content: '';
+        display: inline-block;
+      }
+
+    }
+
+    .subsection-tree {
+      margin-left: 50px;
+      padding: 10px;
+
+      position: relative;
+      border-left: 2px dotted #202020;
+
+      &::before {
+        position: relative;
+        top: -4px;
+        width: 15px;
+        border-bottom: 2px dotted #202020;
+        content: '';
+        display: inline-block;
+      }
+    }
+
+  }
+
+}

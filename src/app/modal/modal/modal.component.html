@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <ng-container *ngIf="data.template">
+    <ng-template [ngTemplateOutlet]="data.template"></ng-template>
+  </ng-container>
+  <div class="btn-wrapper">
+    <button (click)="close()">
+      cancel
+    </button>
+    <button (click)="close(true)">
+      save
+    </button>
+  </div>
+</div>
+
