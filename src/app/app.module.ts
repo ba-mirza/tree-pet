@@ -15,6 +15,7 @@ import {DialogModule} from '@angular/cdk/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ModalComponent} from './modal/modal/modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatIconModule,
     DialogModule,
+    MatSnackBarModule,
     MatDialogModule,
     ReactiveFormsModule
   ],

@@ -3,12 +3,13 @@
     <mat-form-field appearance="outline">
       <input matInput formControlName="title" placeholder="name section">
     </mat-form-field>
+    <span>{{!formInput.markAsTouched && !formInput.dirty ? 'asd' : ''}}</span>
   </form>
   <div class="btn-wrapper">
     <button (click)="close()">
       cancel
     </button>
-    <button (click)="close(true)">
+    <button [disabled]="stateValidator" (click)="close(true)">
       save
     </button>
   </div>

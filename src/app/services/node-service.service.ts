@@ -8,6 +8,7 @@ import { RootTreeNodes } from '../models/models';
 })
 export class NodeService {
   public treeNodes: RootTreeNodes = {
+    id: 1,
     title: 'Root',
     children: [
       {
@@ -38,16 +39,16 @@ export class NodeService {
     return this.nodes$.asObservable();
   }
 
-  addNode(node: any) {
+  addNode(node: any, determinationNode: any | null, callback: () => void) {
     this.nodes$.pipe(
       tap((n: any) => {
-        const _node = copy(node)
+        const _node = copy(node) // lya ianbagi
         n.children.push(_node)
       }),
     ).subscribe({
       next: (db) => {
         finalize(() => console.log('added to ch')),
-        console.log(db);
+        callback();
       }
     })
   }

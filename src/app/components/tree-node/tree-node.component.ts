@@ -3,6 +3,7 @@ import { RootTreeNodes } from 'src/app/models/models';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/modal/modal/modal.component';
 import { NodeService } from 'src/app/services/node-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tree-node',
@@ -15,7 +16,8 @@ export class TreeNodeComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -26,11 +28,15 @@ export class TreeNodeComponent implements OnInit {
     })
   }
 
-  editSection(): void {
-
+  editNode(nodeId: number): void {
+    console.log('edited', nodeId);
   }
 
-  addSection(): void {
+  removeNode(nodeId: number): void {
+    console.log('removed', nodeId);
+  }
+
+  addNode(node?: any): void {
     this.dialog.open(ModalComponent, {
       width: '80vw',
       height: '80vh',
@@ -43,12 +49,19 @@ export class TreeNodeComponent implements OnInit {
         if(!res.bool) {
           return
         }
-        this.nodeService.addNode(res.value);
+        if(res.value.title === null) {
+          this._snackBar.open('ERROR: Please, fill in the field', 'close');
+        } else {
+          console.log(res.value)
+          this.nodeService.addNode(res.value, node, () => {
+            this._snackBar.open("NOTICE: Node added successfully!", "close")
+          });
+        }
       }
     })
   }
 
-  openDialog(): void {
+  editDescriptionLastNode(): void {
     this.dialog.open(ModalComponent, {
       width: '80vw',
       height: '80vh',

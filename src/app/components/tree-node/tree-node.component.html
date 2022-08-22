@@ -2,39 +2,45 @@
   <div class="node-tree">
     <div>
       <span class="root-tree">{{ treeNodes.title }}</span>
-      <button (click)="addSection()">
+      <button (click)="addNode()">
         <i class="material-icons">add</i>
       </button>
     </div>
-    <ng-container *ngFor="let node of treeNodes.children">
-      <div style="margin: 25px">
-        <span class="section-tree">{{ node.title }}</span>
-        <button>
-          <i class="material-icons">add</i>
-        </button>
-        <button>
-          <i class="material-icons">clear</i>
-        </button>
-        <button>
-          <i class="material-icons">edit</i>
-        </button>
-      </div>
-      <div *ngIf="node.children">
-        <ng-container *ngFor="let childNode of node.children">
-          <div style="margin: 10px; padding: 10px">
-            <span class="subsection-tree">{{ childNode.title }}</span>
-            <button>
-              <i class="material-icons">clear</i>
-            </button>
-            <button>
-              <i class="material-icons">edit</i>
-            </button>
-            <button>
-              <i (click)="openDialog()" class="material-icons"> description </i>
-            </button>
-          </div>
+    <ng-container *ngIf="treeNodes.children else notChildren">
+      <ng-container *ngFor="let node of treeNodes.children">
+        <div style="margin: 25px">
+          <span class="section-tree">{{ node.title }}</span>
+          <button (click)="addNode(node)">
+            <i class="material-icons">add</i>
+          </button>
+          <button (click)="removeNode(node.id)">
+            <i class="material-icons">clear</i>
+          </button>
+          <button (click)="editNode(node.id)">
+            <i class="material-icons">edit</i>
+          </button>
+        </div>
+        <ng-container *ngIf="node.children">
+          <ng-container *ngFor="let childNode of node.children">
+            <div style="margin: 10px; padding: 10px">
+              <span class="subsection-tree">{{ childNode.title }}</span>
+              <button (click)="removeNode(childNode.id)">
+                <i class="material-icons">clear</i>
+              </button>
+              <button (click)="editNode(childNode.id)">
+                <i class="material-icons">edit</i>
+              </button>
+              <button>
+                <i (click)="editDescriptionLastNode()" class="material-icons"> description </i>
+              </button>
+            </div>
+          </ng-container>
         </ng-container>
-      </div>
+      </ng-container>
     </ng-container>
   </div>
 </div>
+
+<ng-template #notChildren>
+  <span>Нажмите на <i class="material-icons">add</i> чтобы добавить item</span>
+</ng-template>
