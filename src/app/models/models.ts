@@ -9,7 +9,7 @@ export interface SubSectionNode {
 }
 
 export interface SectionNode {
-  // FIX: parent interface
+  // TODO: Fix parent interface
   id: number,
   title: string,
   parent?: RootTreeNodes,

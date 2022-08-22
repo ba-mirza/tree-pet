@@ -16,7 +16,7 @@ export class TreeNodeComponent implements OnInit {
   public treeNodes!: RootTreeNodes;
 
   constructor(
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private nodeService: NodeService,
     private _snackBar: MatSnackBar
   ) {}
@@ -29,7 +29,7 @@ export class TreeNodeComponent implements OnInit {
     })
   }
 
-  editNode(nodeId: number): void {
+  public editNode(nodeId: number): void {
     this.dialog.open(ModalComponent, {
       width: '80vw',
       height: '80vh',
@@ -44,7 +44,7 @@ export class TreeNodeComponent implements OnInit {
     })
   }
 
-  removeNode(nodeId: number): void {
+  public removeNode(nodeId: number): void {
     this.nodeService.removeNode(nodeId).subscribe({
       next: (n) => {
         this._snackBar.open(`REMOVED ${n.title}`, CLOSE)
@@ -52,7 +52,7 @@ export class TreeNodeComponent implements OnInit {
     })
   }
 
-  addNode(node?: any): void {
+  public addNode(node?: any): void {
     this.dialog.open(ModalComponent, {
       width: '80vw',
       height: '80vh',
@@ -66,7 +66,7 @@ export class TreeNodeComponent implements OnInit {
           return
         }
         if(res.value.title === null) {
-          this._snackBar.open('ERROR: Please, fill in the field', CLOSE);
+          this._snackBar.open('ERROR: Please, fill in the field');
         } else {
           console.log(res.value)
           this.nodeService.addNode(res.value, node).subscribe({
@@ -79,7 +79,7 @@ export class TreeNodeComponent implements OnInit {
     })
   }
 
-  editDescriptionLastNode(): void {
+  public editDescriptionLastNode(): void {
     this.dialog.open(ModalComponent, {
       width: '80vw',
       height: '80vh',

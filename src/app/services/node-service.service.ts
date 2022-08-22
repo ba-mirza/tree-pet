@@ -7,7 +7,8 @@ import { RootTreeNodes } from '../models/models';
   providedIn: 'root',
 })
 export class NodeService {
-  public treeNodes: RootTreeNodes = {
+
+  private readonly treeNodes: RootTreeNodes = {
     id: 1,
     title: 'Root',
     children: [
@@ -30,6 +31,7 @@ export class NodeService {
     isOpen: true,
   };
 
+  // TODO: Fix public
   public nodes$: BehaviorSubject<RootTreeNodes> =
     new BehaviorSubject<RootTreeNodes>(this.treeNodes);
 
@@ -39,12 +41,12 @@ export class NodeService {
     return this.nodes$.asObservable();
   }
 
-  editNode(id: number): Observable<any> {
+  public editNode(id: number): Observable<any> {
     // TODO:
     return of()
   }
 
-  removeNode(id: number): Observable<any> {
+  public removeNode(id: number): Observable<any> {
     // TODO: Use uuid lib for unique id..
     return this.nodes$.pipe(
       tap((n: RootTreeNodes) => {
@@ -53,7 +55,7 @@ export class NodeService {
     )
   }
 
-  addNode(node: any, determinationNode?: any): Observable<any> {
+  public addNode(node: any, determinationNode?: any): Observable<any> {
     return this.nodes$.pipe(
       tap((n: any) => {
         const _node = copy(node) // lya ianbagi
