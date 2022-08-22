@@ -6,7 +6,7 @@
         <i class="material-icons">add</i>
       </button>
     </div>
-    <ng-container *ngIf="treeNodes.children else notChildren">
+    <ng-container *ngIf="treeNodes.children; else notChildren">
       <ng-container *ngFor="let node of treeNodes.children">
         <div style="margin: 25px">
           <span class="section-tree">{{ node.title }}</span>
@@ -31,7 +31,9 @@
                 <i class="material-icons">edit</i>
               </button>
               <button>
-                <i (click)="editDescriptionLastNode()" class="material-icons"> description </i>
+                <i (click)="editDescriptionLastNode()" class="material-icons">
+                  description
+                </i>
               </button>
             </div>
           </ng-container>

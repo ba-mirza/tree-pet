@@ -7,7 +7,6 @@ import { RootTreeNodes } from '../models/models';
   providedIn: 'root',
 })
 export class NodeService {
-
   private readonly treeNodes: RootTreeNodes = {
     id: 1,
     title: 'Root',
@@ -43,24 +42,24 @@ export class NodeService {
 
   public editNode(id: number): Observable<any> {
     // TODO:
-    return of()
+    return of();
   }
 
   public removeNode(id: number): Observable<any> {
     // TODO: Use uuid lib for unique id..
     return this.nodes$.pipe(
       tap((n: RootTreeNodes) => {
-        n.children?.filter((c) => c.id !== id)
+        n.children?.filter((c) => c.id !== id);
       })
-    )
+    );
   }
 
   public addNode(node: any, determinationNode?: any): Observable<any> {
     return this.nodes$.pipe(
       tap((n: any) => {
-        const _node = copy(node) // lya ianbagi
-        n.children.push(_node)
+        const _node = copy(node); // lya ianbagi
+        n.children.push(_node);
       })
-    )
+    );
   }
 }

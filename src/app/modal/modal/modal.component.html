@@ -1,16 +1,11 @@
 <div class="wrapper">
   <form [formGroup]="formInput">
     <mat-form-field appearance="outline">
-      <input matInput formControlName="title" placeholder="name section">
+      <input matInput formControlName="title" placeholder="name section" />
     </mat-form-field>
   </form>
   <div class="btn-wrapper">
-    <button (click)="close()">
-      cancel
-    </button>
-    <button [disabled]="stateValidator" (click)="close(true)">
-      save
-    </button>
+    <button (click)="close()">cancel</button>
+    <button [disabled]="stateValidator" (click)="close(true)">save</button>
   </div>
 </div>
-

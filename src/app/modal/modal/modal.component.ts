@@ -8,7 +8,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-
   public stateValidator: boolean = false;
 
   readonly formInput: FormGroup<any> = new FormGroup({
@@ -20,8 +19,7 @@ export class ModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public close(submit?: boolean): void {
     const value = this.formInput.getRawValue();

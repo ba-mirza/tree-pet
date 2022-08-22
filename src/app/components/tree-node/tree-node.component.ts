@@ -12,7 +12,6 @@ import { CLOSE } from 'src/app/constants';
   styleUrls: ['./tree-node.component.scss'],
 })
 export class TreeNodeComponent implements OnInit {
-
   public treeNodes!: RootTreeNodes;
 
   constructor(
@@ -25,58 +24,62 @@ export class TreeNodeComponent implements OnInit {
     this.nodeService.nodes$.subscribe({
       next: (n: RootTreeNodes) => {
         this.treeNodes = n;
-      }
-    })
+      },
+    });
   }
 
   public editNode(nodeId: number): void {
-    this.dialog.open(ModalComponent, {
-      width: '80vw',
-      height: '80vh',
-      maxWidth: '350px',
-      maxHeight: '300px',
-      data: nodeId,
-      autoFocus: false,
-    }).afterClosed().subscribe({
-      next: (res) => {
-
-      }
-    })
+    this.dialog
+      .open(ModalComponent, {
+        width: '80vw',
+        height: '80vh',
+        maxWidth: '350px',
+        maxHeight: '300px',
+        data: nodeId,
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res) => {},
+      });
   }
 
   public removeNode(nodeId: number): void {
     this.nodeService.removeNode(nodeId).subscribe({
       next: (n) => {
-        this._snackBar.open(`REMOVED ${n.title}`, CLOSE)
-      }
-    })
+        this._snackBar.open(`REMOVED ${n.title}`, CLOSE);
+      },
+    });
   }
 
   public addNode(node?: any): void {
-    this.dialog.open(ModalComponent, {
-      width: '80vw',
-      height: '80vh',
-      maxWidth: '350px',
-      maxHeight: '300px',
-      data: 'asd',
-      autoFocus: false,
-    }).afterClosed().subscribe({
-      next: (res?: any) => {
-        if(!res.bool) {
-          return
-        }
-        if(res.value.title === null) {
-          this._snackBar.open('ERROR: Please, fill in the field');
-        } else {
-          console.log(res.value)
-          this.nodeService.addNode(res.value, node).subscribe({
-            next: () => {
-              this._snackBar.open("NOTICE: Node added successfully!", CLOSE)
-            },
-          })
-        }
-      }
-    })
+    this.dialog
+      .open(ModalComponent, {
+        width: '80vw',
+        height: '80vh',
+        maxWidth: '350px',
+        maxHeight: '300px',
+        data: 'asd',
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res?: any) => {
+          if (!res.bool) {
+            return;
+          }
+          if (res.value.title === null) {
+            this._snackBar.open('ERROR: Please, fill in the field');
+          } else {
+            console.log(res.value);
+            this.nodeService.addNode(res.value, node).subscribe({
+              next: () => {
+                this._snackBar.open('NOTICE: Node added successfully!', CLOSE);
+              },
+            });
+          }
+        },
+      });
   }
 
   public editDescriptionLastNode(): void {
@@ -86,7 +89,6 @@ export class TreeNodeComponent implements OnInit {
       maxWidth: '350px',
       maxHeight: '300px',
       autoFocus: false,
-    })
+    });
   }
-
 }
