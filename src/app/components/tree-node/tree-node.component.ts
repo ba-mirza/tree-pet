@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/modal/modal/modal.component';
 import { NodeService } from 'src/app/services/node-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UnsubscriptionError } from 'rxjs';
 
 @Component({
   selector: 'app-tree-node',
@@ -33,7 +34,7 @@ export class TreeNodeComponent implements OnInit {
   }
 
   removeNode(nodeId: number): void {
-    console.log('removed', nodeId);
+    this.nodeService.removeNode(nodeId);
   }
 
   addNode(node?: any): void {
@@ -53,9 +54,11 @@ export class TreeNodeComponent implements OnInit {
           this._snackBar.open('ERROR: Please, fill in the field', 'close');
         } else {
           console.log(res.value)
-          this.nodeService.addNode(res.value, node, () => {
-            this._snackBar.open("NOTICE: Node added successfully!", "close")
-          });
+          this.nodeService.addNode(res.value, node).subscribe({
+            next: () => {
+              this._snackBar.open("NOTICE: Node added successfully!", "close")
+            },
+          })
         }
       }
     })

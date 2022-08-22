@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, finalize, map, tap } from 'rxjs';
+import { BehaviorSubject, finalize, Observable, of, tap } from 'rxjs';
 import { copy } from '../functions/copy';
 import { RootTreeNodes } from '../models/models';
 
@@ -39,17 +39,22 @@ export class NodeService {
     return this.nodes$.asObservable();
   }
 
-  addNode(node: any, determinationNode: any | null, callback: () => void) {
-    this.nodes$.pipe(
+  editNode(id: number): Observable<any> {
+    return of()
+  }
+
+  removeNode(id: number): void {
+    // TODO: Fix void, must return observable
+    const currentItems = this.nodes$.getValue();
+    const itemsWithoutDeleted = currentItems.children?.filter(d => d.id !== id);
+  }
+
+  addNode(node: any, determinationNode?: any): Observable<any> {
+    return this.nodes$.pipe(
       tap((n: any) => {
         const _node = copy(node) // lya ianbagi
         n.children.push(_node)
       }),
-    ).subscribe({
-      next: (db) => {
-        finalize(() => console.log('added to ch')),
-        callback();
-      }
-    })
+    )
   }
 }
