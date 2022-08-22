@@ -1,10 +1,10 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RootTreeNodes } from 'src/app/models/models';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/modal/modal/modal.component';
 import { NodeService } from 'src/app/services/node-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UnsubscriptionError } from 'rxjs';
+import { CLOSE } from 'src/app/constants';
 
 @Component({
   selector: 'app-tree-node',
@@ -30,11 +30,26 @@ export class TreeNodeComponent implements OnInit {
   }
 
   editNode(nodeId: number): void {
-    console.log('edited', nodeId);
+    this.dialog.open(ModalComponent, {
+      width: '80vw',
+      height: '80vh',
+      maxWidth: '350px',
+      maxHeight: '300px',
+      data: nodeId,
+      autoFocus: false,
+    }).afterClosed().subscribe({
+      next: (res) => {
+
+      }
+    })
   }
 
   removeNode(nodeId: number): void {
-    this.nodeService.removeNode(nodeId);
+    this.nodeService.removeNode(nodeId).subscribe({
+      next: (n) => {
+        this._snackBar.open(`REMOVED ${n.title}`, CLOSE)
+      }
+    })
   }
 
   addNode(node?: any): void {
@@ -51,12 +66,12 @@ export class TreeNodeComponent implements OnInit {
           return
         }
         if(res.value.title === null) {
-          this._snackBar.open('ERROR: Please, fill in the field', 'close');
+          this._snackBar.open('ERROR: Please, fill in the field', CLOSE);
         } else {
           console.log(res.value)
           this.nodeService.addNode(res.value, node).subscribe({
             next: () => {
-              this._snackBar.open("NOTICE: Node added successfully!", "close")
+              this._snackBar.open("NOTICE: Node added successfully!", CLOSE)
             },
           })
         }

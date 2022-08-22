@@ -40,13 +40,17 @@ export class NodeService {
   }
 
   editNode(id: number): Observable<any> {
+    // TODO:
     return of()
   }
 
-  removeNode(id: number): void {
-    // TODO: Fix void, must return observable
-    const currentItems = this.nodes$.getValue();
-    const itemsWithoutDeleted = currentItems.children?.filter(d => d.id !== id);
+  removeNode(id: number): Observable<any> {
+    // TODO: Use uuid lib for unique id..
+    return this.nodes$.pipe(
+      tap((n: RootTreeNodes) => {
+        n.children?.filter((c) => c.id !== id)
+      })
+    )
   }
 
   addNode(node: any, determinationNode?: any): Observable<any> {
@@ -54,7 +58,7 @@ export class NodeService {
       tap((n: any) => {
         const _node = copy(node) // lya ianbagi
         n.children.push(_node)
-      }),
+      })
     )
   }
 }

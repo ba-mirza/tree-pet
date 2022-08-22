@@ -1,6 +1,7 @@
 export type CreateDirectoryModes = 'root' | 'child';
 
 export interface SubSectionNode {
+  // FIX: parent interface
   id: number,
   title: string,
   description?: string,
@@ -8,6 +9,7 @@ export interface SubSectionNode {
 }
 
 export interface SectionNode {
+  // FIX: parent interface
   id: number,
   title: string,
   parent?: RootTreeNodes,
