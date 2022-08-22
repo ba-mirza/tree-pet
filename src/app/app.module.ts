@@ -9,10 +9,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Angular Material
 import {MatTreeModule} from '@angular/material/tree';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {DialogModule} from '@angular/cdk/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ModalComponent} from './modal/modal/modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,9 +29,11 @@ import {ModalComponent} from './modal/modal/modal.component';
     BrowserAnimationsModule,
     MatTreeModule,
     MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
     DialogModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

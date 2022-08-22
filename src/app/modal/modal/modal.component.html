@@ -1,7 +1,9 @@
 <div class="wrapper">
-  <ng-container *ngIf="data.template">
-    <ng-template [ngTemplateOutlet]="data.template"></ng-template>
-  </ng-container>
+  <form [formGroup]="formInput">
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="title" placeholder="name section">
+    </mat-form-field>
+  </form>
   <div class="btn-wrapper">
     <button (click)="close()">
       cancel

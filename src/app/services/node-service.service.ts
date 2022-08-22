@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, finalize, map, tap } from 'rxjs';
+import { copy } from '../functions/copy';
 import { RootTreeNodes } from '../models/models';
 
 @Injectable({
@@ -10,14 +11,16 @@ export class NodeService {
     title: 'Root',
     children: [
       {
+        id: 1,
         title: 'section1',
         children: [
-          { title: 'subsection1', description: 'descrpt1' },
-          { title: 'subsection2', description: 'descrpt2' },
+          { id: 1, title: 'subsection1', description: 'descrpt1' },
+          { id: 2, title: 'subsection2', description: 'descrpt2' },
         ],
         isOpen: true,
       },
       {
+        id: 2,
         title: 'section2',
         children: null,
         isOpen: false,
@@ -35,7 +38,17 @@ export class NodeService {
     return this.nodes$.asObservable();
   }
 
-  set nodes(node: any) {
-    this.nodes$.next(node);
+  addNode(node: any) {
+    this.nodes$.pipe(
+      tap((n: any) => {
+        const _node = copy(node)
+        n.children.push(_node)
+      }),
+    ).subscribe({
+      next: (db) => {
+        finalize(() => console.log('added to ch')),
+        console.log(db);
+      }
+    })
   }
 }

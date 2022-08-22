@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -7,19 +8,19 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
+  formInput: FormGroup<any> = new FormGroup({
+    title: new FormControl(null, [Validators.required]),
+  });
+
   constructor(
     public dialogRef: MatDialogRef<any>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      template: TemplateRef<any>,
-      data: any,
-    }
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.data);
-  }
+  ngOnInit(): void {}
 
   close(submit?: boolean): void {
-    this.dialogRef.close(submit);
+    const value = this.formInput.getRawValue();
+    this.dialogRef.close({ bool: submit, value });
   }
 }

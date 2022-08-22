@@ -11,8 +11,6 @@ import { NodeService } from 'src/app/services/node-service.service';
 })
 export class TreeNodeComponent implements OnInit {
 
-  @ViewChild('addSubSectionForms') addSubSectionForms!: TemplateRef<any>;
-
   public treeNodes!: RootTreeNodes;
 
   constructor(
@@ -28,21 +26,24 @@ export class TreeNodeComponent implements OnInit {
     })
   }
 
+  editSection(): void {
+
+  }
+
   addSection(): void {
-    const template = this.addSubSectionForms;
     this.dialog.open(ModalComponent, {
       width: '80vw',
       height: '80vh',
       maxWidth: '350px',
       maxHeight: '300px',
-      data: {template},
+      data: 'asd',
       autoFocus: false,
     }).afterClosed().subscribe({
-      next: (accept?: boolean) => {
-        if(!accept) {
-          console.log('false')
+      next: (res?: any) => {
+        if(!res.bool) {
+          return
         }
-        console.log('true')
+        this.nodeService.addNode(res.value);
       }
     })
   }
@@ -53,7 +54,6 @@ export class TreeNodeComponent implements OnInit {
       height: '80vh',
       maxWidth: '350px',
       maxHeight: '300px',
-      data: "Hello Modal Component",
       autoFocus: false,
     })
   }
