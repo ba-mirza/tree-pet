@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { RootTreeNodes } from 'src/app/models/models';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/modal/modal/modal.component';
 import { NodeService } from 'src/app/services/node-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CLOSE } from 'src/app/constants';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-tree-node',
   templateUrl: './tree-node.component.html',
   styleUrls: ['./tree-node.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TreeNodeComponent implements OnInit {
+export class TreeNodeComponent implements OnInit, OnDestroy {
   public treeNodes!: RootTreeNodes;
+  readonly destroy$: Subject<undefined> = new Subject();
 
   constructor(
     private dialog: MatDialog,
@@ -39,8 +42,9 @@ export class TreeNodeComponent implements OnInit {
         autoFocus: false,
       })
       .afterClosed()
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (res) => {},
+        next: (res) => {return res},
       });
   }
 
@@ -90,5 +94,10 @@ export class TreeNodeComponent implements OnInit {
       maxHeight: '300px',
       autoFocus: false,
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
   }
 }
