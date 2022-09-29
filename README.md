@@ -2,7 +2,9 @@
 ## Not ready
 In the process...
 
-The project is not ready yet. I am still stydying.
+```Typescript
+The project is not ready yet.
+```
 
 ## Development server
 
